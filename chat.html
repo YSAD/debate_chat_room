@@ -1,0 +1,40 @@
+<!doctype html>
+<html ng-app>
+  <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.0-rc.4/angular.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="chatstyle.css" />
+  </head>
+  <body>
+    <h2>Red or green??</h2>
+      <div class="home">
+        <div id="wrapper">
+        <div id="menu">
+            <p class="exit"><a id="exit" href="index.html">Return to main menu</a></p>
+            <div style="clear:both"></div>
+        </div>
+         
+        <div id="chatbox"></div>
+         
+        <form name="message" action="">
+            <input name="usermsg" type="text" id="usermsg" size="63" />
+            <input name="submitmsg" type="submit"  id="submitmsg" value="Send" />
+        </form>
+        </div>
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script>
+      var socket = io();
+      $('form').submit(function(){
+        socket.emit('chat message', $('#m').val());
+        $('#m').val('');
+        return false;
+      });
+      socket.on('chat message', function(msg){
+        $('#messages').append($('<li>').text(msg));
+      });
+    </script>
+
+      </div>
+  </body>
+</html>
